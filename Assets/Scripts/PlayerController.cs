@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private float movementX;
     private float movementY;
 
+    
+
     // Speed at which the player moves.
     public float speed;
 
@@ -25,6 +27,12 @@ public class PlayerController : MonoBehaviour
 
     // UI object to display winning text.
     public GameObject winTextObject;
+
+    public AudioSource audioSource;
+    public AudioClip pickUpSound;
+    public AudioClip victorySound;
+    public float volume = 0.5f;
+
 
     // Start is called before the first frame update.
     void Start()
@@ -69,6 +77,8 @@ public class PlayerController : MonoBehaviour
         // Check if the object the player collided with has the "Pickup" tag.
         if (other.gameObject.CompareTag("Pickup"))
         {
+            audioSource.PlayOneShot(pickUpSound);
+
             // Deactivate the collided object (making it disappear).
             other.gameObject.SetActive(false);
 
@@ -91,6 +101,7 @@ public class PlayerController : MonoBehaviour
         {
             // Display the win text.
             winTextObject.SetActive(true);
+            audioSource.PlayOneShot(victorySound);
         }
     }
 }
